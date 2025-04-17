@@ -1,0 +1,12 @@
+/* ========== GLobal settings ========== */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* ========== Main Canvas Page ========== */
+#mainCanvas {
+    border: 3px solid black;
+
+}

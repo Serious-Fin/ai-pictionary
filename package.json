@@ -1,0 +1,26 @@
+{
+  "name": "ai-pictionary",
+  "version": "1.0.0",
+  "description": "Play a round of pictionary against an AI. Draw your shape and have an AI try and guess it",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Serious-Fin/ai-pictionary.git"
+  },
+  "keywords": [],
+  "author": "Serious-Fin",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Serious-Fin/ai-pictionary/issues"
+  },
+  "homepage": "https://github.com/Serious-Fin/ai-pictionary#readme",
+  "devDependencies": {
+    "jsdom": "^26.1.0",
+    "mocha": "^11.1.0",
+    "sinon": "^20.0.0"
+  }
+}
