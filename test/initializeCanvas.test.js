@@ -1,5 +1,4 @@
 import assert from "assert";
-import sinon from "sinon";
 import { InvalidElementTypeError } from "../scripts/errors.js";
 import { initializeCanvas } from "../scripts/initializeCanvas.js";
 import { JSDOM } from "jsdom";

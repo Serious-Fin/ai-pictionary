@@ -9,9 +9,7 @@ export class InvalidElementTypeError extends Error {
    * @param {string} gotElementType Type of element that was actually got
    */
   constructor(elementId, expectedElementType, gotElementType) {
-    super(
-      `Unexpected element type selected with id "${elementId}". Expected element of type "${expectedElementType}" but got "${gotElementType}"`
-    );
+    super(`Unexpected element type selected with id "${elementId}". Expected element of type "${expectedElementType}" but got "${gotElementType}"`);
     this.name = "InvalidElementTypeError";
   }
 }
