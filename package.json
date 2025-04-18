@@ -20,7 +20,6 @@
   "homepage": "https://github.com/Serious-Fin/ai-pictionary#readme",
   "devDependencies": {
     "jsdom": "^26.1.0",
-    "mocha": "^11.1.0",
-    "sinon": "^20.0.0"
+    "mocha": "^11.1.0"
   }
 }
