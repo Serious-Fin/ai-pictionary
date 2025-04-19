@@ -5,25 +5,28 @@ import { InvalidElementTypeError } from "./errors.js";
  * @param {string} canvasId HTML Id of canvas element
  * @throws {InvalidElementTypeError} If element is not of type canvas
  */
-export function initializeCanvas(canvasId, lineWidth = 4, lineColor = "#000") {
+export function initializeCanvas(canvasId, lineWidth = 4, lineColor = "#444") {
   const canvas = document.getElementById(canvasId);
   if (!(canvas instanceof window.HTMLCanvasElement)) {
     throw new InvalidElementTypeError(canvasId, window.HTMLCanvasElement, typeof canvas);
   }
+  canvas.width = window.innerWidth * 0.8;
+  canvas.height = window.innerHeight * 0.8;
   const ctx = canvas.getContext("2d");
-  canvasContextConfiguration(ctx, lineWidth, lineColor);
-  canvasEventListenerConfiguration(canvas, ctx);
+  setCanvasProps(ctx, { width: lineWidth, color: lineColor });
+  addDrawingControls(canvas, ctx);
+  addColorAndWidthControls(ctx, "lineWidthSlider", "lineColorPicker");
 }
 
 /**
- * Set initial drawing properties of canvas element
- * @param {CanvasRenderingContext2D} ctx canvas context
- * @param {number} lineWidth initial line width
- * @param {color} lineColor initial line color
+ * Set drawing properties for canvas element
+ * @param {CanvasRenderingContext2D} ctx Canvas rendering 2D context
+ * @param {{color?: string, width?: number}} canvasProps new pen drawing properties
  */
-function canvasContextConfiguration(ctx, lineWidth, lineColor) {
-  ctx.lineWidth = lineWidth;
-  ctx.strokeStyle = lineColor;
+function setCanvasProps(ctx, canvasProps) {
+  ctx.lineWidth = canvasProps.width ?? ctx.lineWidth;
+  ctx.strokeStyle = canvasProps.color ?? ctx.strokeStyle;
+  ctx.fillStyle = canvasProps.color ?? ctx.fillStyle;
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
 }
@@ -33,7 +36,7 @@ function canvasContextConfiguration(ctx, lineWidth, lineColor) {
  * @param {HTMLCanvasElement} canvas html canvas element
  * @param {CanvasRenderingContext2D} ctx canvas 2D context
  */
-function canvasEventListenerConfiguration(canvas, ctx) {
+function addDrawingControls(canvas, ctx) {
   let isPenDown = false;
   let lastX, lastY;
   const canvasPosition = canvas.getBoundingClientRect();
@@ -71,5 +74,25 @@ function canvasEventListenerConfiguration(canvas, ctx) {
 
     lastX = currentX;
     lastY = currentY;
+  });
+}
+
+function addColorAndWidthControls(ctx, widthSliderId, colorPickerId) {
+  const strokeWidthSlider = document.getElementById(widthSliderId);
+  if (!(strokeWidthSlider instanceof window.HTMLInputElement)) {
+    throw new InvalidElementTypeError(widthSliderId, window.HTMLInputElement, typeof strokeWidthSlider);
+  }
+
+  const lineColorPicker = document.getElementById(colorPickerId);
+  if (!(lineColorPicker instanceof window.HTMLInputElement)) {
+    throw new InvalidElementTypeError(colorPickerId, window.HTMLInputElement, typeof lineColorPicker);
+  }
+
+  strokeWidthSlider.addEventListener("change", () => {
+    setCanvasProps(ctx, { width: strokeWidthSlider.value });
+  });
+
+  lineColorPicker.addEventListener("change", () => {
+    setCanvasProps(ctx, { color: lineColorPicker.value });
   });
 }
